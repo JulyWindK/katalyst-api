@@ -174,13 +174,20 @@ type ControlKnobName string
 
 const (
 	// ControlKnobNonReclaimedCPURequirement refers to cpu requirement of non-reclaimed workloads, like shared_cores and dedicated_cores
+	// deprecated, will be removed later
 	ControlKnobNonReclaimedCPURequirement ControlKnobName = "non-reclaimed-cpu-requirement"
 
-	// ControlKnobNonReclaimedCPURequirementUpper refers to the upper cpu size, for isolated pods now
-	ControlKnobNonReclaimedCPURequirementUpper ControlKnobName = "non-reclaimed-cpu-requirement-upper"
+	// ControlKnobNonIsolatedUpperCPUSize refers to the upper cpu size, for isolated pods now
+	ControlKnobNonIsolatedUpperCPUSize ControlKnobName = "isolated-upper-cpu-size"
 
-	// ControlKnobNonReclaimedCPURequirementLower refers to the lower cpu size, for isolated pods now
-	ControlKnobNonReclaimedCPURequirementLower ControlKnobName = "non-reclaimed-cpu-requirement-lower"
+	// ControlKnobNonIsolatedLowerCPUSize refers to the lower cpu size, for isolated pods now
+	ControlKnobNonIsolatedLowerCPUSize ControlKnobName = "isolated-lower-cpu-size"
+
+	// ControlKnobReclaimedCoresCPUQuota is cpu limit for reclaimed-cores root cgroup
+	ControlKnobReclaimedCoresCPUQuota ControlKnobName = "reclaimed-cores-cpu-quota"
+
+	// ControlKnobReclaimedCoresCPUSize is the length of cpuset.cpus for reclaimed-cores
+	ControlKnobReclaimedCoresCPUSize ControlKnobName = "reclaimed-cores-cpu-size"
 )
 
 type RegionIndicators struct {
@@ -412,6 +419,40 @@ type CPUPressureEvictionConfig struct {
 	// +kubebuilder:validation:Minimum=0
 	// +optional
 	GracePeriod *int64 `json:"gracePeriod,omitempty"`
+
+	// NumaCPUPressureEvictionConfig holds configurations for NUMA-level CPU pressure eviction.
+	NumaCPUPressureEvictionConfig NumaCPUPressureEvictionConfig `json:"numaCPUPressureEvictionConfig,omitempty"`
+}
+
+// NumaCPUPressureEvictionConfig holds the configurations for NUMA-level CPU pressure eviction.
+type NumaCPUPressureEvictionConfig struct {
+	// EnableEviction indicates whether to enable NUMA-level CPU pressure eviction.
+	// +optional
+	EnableEviction *bool `json:"enableEviction,omitempty"`
+
+	// ThresholdMetPercentage is the percentage of time the NUMA's CPU pressure
+	// must be above the threshold for an eviction to be triggered.
+	// +kubebuilder:validation:Minimum=0
+	// +kubebuilder:validation:Maximum=1
+	// +optional
+	ThresholdMetPercentage *float64 `json:"thresholdMetPercentage,omitempty"`
+
+	// MetricRingSize is the size of the metric ring buffer for calculating NUMA CPU pressure.
+	// +kubebuilder:validation:Minimum=1
+	// +optional
+	MetricRingSize *int `json:"metricRingSize,omitempty"`
+
+	// GracePeriod is the grace period (in seconds) after a pod starts before it can be considered for eviction
+	// due to NUMA CPU pressure. 0 means no grace period.
+	// +kubebuilder:validation:Minimum=0
+	// +optional
+	GracePeriod *int64 `json:"gracePeriod,omitempty"`
+
+	// ThresholdExpandFactor expands the metric threshold from a specific machine to set the eviction threshold.
+	// E.g., 1.1 means a 10% increase.
+	// +kubebuilder:validation:Minimum=0
+	// +optional
+	ThresholdExpandFactor *float64 `json:"thresholdExpandFactor,omitempty"`
 }
 
 type MemoryPressureEvictionConfig struct {
@@ -568,6 +609,24 @@ type RootfsPressureEvictionConfig struct {
 	// GracePeriod is the grace period of pod deletion
 	// +optional
 	GracePeriod *int64 `json:"gracePeriod,omitempty"`
+
+	// EnableRootfsOveruseEviction is whether to enable rootfs overuse eviction.
+	// +optional
+	EnableRootfsOveruseEviction *bool `json:"enableRootfsOveruseEviction,omitempty"`
+
+	// RootfsOveruseEvictionSupportedQoSLevels is the supported qos levels for rootfs overuse eviction.
+	// +optional
+	RootfsOveruseEvictionSupportedQoSLevels []string `json:"rootfsOveruseEvictionSupportedQoSLevels,omitempty"`
+
+	// SharedQoSRootfsOveruseThreshold is the threshold for rootfs overuse.
+	// For example: "100Gi", "10%".
+	// +optional
+	SharedQoSRootfsOveruseThreshold *string `json:"sharedQoSRootfsOveruseThreshold,omitempty"`
+
+	// ReclaimedQoSRootfsOveruseThreshold is the threshold for rootfs overuse.
+	// For example: "100Gi", "10%".
+	// +optional
+	ReclaimedQoSRootfsOveruseThreshold *string `json:"reclaimedQoSRootfsOveruseThreshold,omitempty"`
 }
 
 type NetworkEvictionConfig struct {
