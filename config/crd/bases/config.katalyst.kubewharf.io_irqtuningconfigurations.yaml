@@ -84,7 +84,7 @@ spec:
               config:
                 description: Config is custom field for irq tuning configuration
                 properties:
-                  coreNetOverLoadThresh:
+                  coreNetOverLoadThreshold:
                     description: Threshold description for interrupting core network
                       overLoad.
                     properties:
@@ -113,7 +113,7 @@ spec:
                               IRQCoresDecThresholds represents the threshold of decreasing irq cores.
                               when irq cores average cpu util less-equal IrqCoresAvgCpuUtilThresh, then decrease irq cores.
                             properties:
-                              avgCPUUtilThresh:
+                              avgCPUUtilThreshold:
                                 description: Threshold of decreasing irq cores, generally
                                   this thresh should be less-than IrqCoresExpectedCpuUtil
                                 type: integer
@@ -125,7 +125,7 @@ spec:
                           When irq cores cpu util nearly full(e.g., greater-equal 85%), in order to reduce the impact time on the applications, it is necessary to immediately
                           fall back to the balance-fair policy first, and later irq tuning manager will auto switch back to IrqCoresExclusive policy based on policies and conditions.
                         properties:
-                          fullThresh:
+                          fullThreshold:
                             description: When irq cores cpu util hit this thresh,
                               then fallback to balance-fair policy
                             type: integer
@@ -141,7 +141,7 @@ spec:
                               when there are one or more irq core's net load greater-equal IrqCoreNetOverloadThresholds, and failed to tune to irq load balance,
                               then increase irq cores.
                             properties:
-                              avgCPUUtilThresh:
+                              avgCPUUtilThreshold:
                                 description: Threshold of increasing irq cores, generally
                                   this thresh equal to or a litter greater-than IrqCoresExpectedCpuUtil
                                 type: integer
@@ -174,7 +174,7 @@ spec:
                               DisableIRQCoresExclusionThresholds represents the threshold of disabling irq cores exclusion.
                               When successive count of nic's total PPS <= RxPPSThresh is greater-equal SuccessiveCount, then disable exclusion of this nic's irq cores.
                             properties:
-                              rxPPSThresh:
+                              rxPPSThreshold:
                                 format: uint64
                                 minimum: 0
                                 type: integer
@@ -186,7 +186,7 @@ spec:
                               EnableIRQCoresExclusionThresholds represents the threshold of enabling irq cores exclusion.
                               When successive count of nic's total PPS >= RxPPSThresh is greater-equal SuccessiveCount, then enable exclusion of this nic's irq cores.
                             properties:
-                              rxPPSThresh:
+                              rxPPSThreshold:
                                 format: uint64
                                 minimum: 0
                                 type: integer
@@ -221,8 +221,8 @@ spec:
                     description: Describes the constraints of the balanced configuration.
                     properties:
                       irqCoresTunedNumMaxEachTime:
-                        description: Max number of irq cores whose affinitied irqs
-                          are permitted to tuned to other cores in each time, allowed
+                        description: Max number of irq cores whose affinity irqs are
+                          permitted to tuned to other cores in each time, allowed
                           value {1,2}
                         enum:
                         - 1
@@ -236,13 +236,13 @@ spec:
                         - 1
                         - 2
                         type: integer
-                      pingPongCountThresh:
+                      pingPongCountThreshold:
                         description: Ping pong count greater-equal this threshold
                           will trigger increasing irq cores
                         type: integer
-                      pingPongIntervalThresh:
+                      pingPongIntervalThreshold:
                         description: Two successive tunes whose interval is less-equal
-                          this threshold will be considered as pingpong tunings
+                          this threshold will be considered as ping-pong tunings
                         type: integer
                       successiveTuningInterval:
                         description: Interval of two successive irq load balance MUST
@@ -250,11 +250,11 @@ spec:
                         type: integer
                       thresholds:
                         properties:
-                          cpuUtilGapThresh:
+                          cpuUtilGapThreshold:
                             description: Threshold of cpu util gap between source
                               core and dest core of irq affinity changing
                             type: integer
-                          cpuUtilThresh:
+                          cpuUtilThreshold:
                             description: IRQ core cpu util threshold, which will trigger
                               irq cores load balance, generally this value should
                               greater-equal IRQCoresExpectedCpuUtil
@@ -271,12 +271,12 @@ spec:
                       process.
                     type: boolean
                   throughputClassSwitch:
-                    description: ThrouputClassSwitch describes the switch configuration
+                    description: ThroughputClassSwitch describes the switch configuration
                       for a throughput class.
                     properties:
                       lowThroughputThresholds:
                         properties:
-                          rxPPSThresh:
+                          rxPPSThreshold:
                             format: int64
                             type: integer
                           successiveCount:
@@ -284,7 +284,7 @@ spec:
                         type: object
                       normalThroughputThresholds:
                         properties:
-                          rxPPSThresh:
+                          rxPPSThreshold:
                             format: int64
                             type: integer
                           successiveCount:
