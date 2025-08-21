@@ -100,12 +100,12 @@ type IRQTuningConfig struct {
 	// +optional
 	CoresExpectedCPUUtil *int `json:"coresExpectedCPUUtil,omitempty"`
 
-	// ThrouputClassSwitch describes the switch configuration for a throughput class.
+	// ThroughputClassSwitch describes the switch configuration for a throughput class.
 	// +optional
-	ThrouputClassSwitch *ThroughputClassSwitchConfig `json:"throughputClassSwitch,omitempty"`
+	ThroughputClassSwitch *ThroughputClassSwitchConfig `json:"throughputClassSwitch,omitempty"`
 	// Threshold description for interrupting core network overLoad.
 	// +optional
-	CoreNetOverLoadThresh *IRQCoreNetOverloadThresholds `json:"coreNetOverLoadThresh,omitempty"`
+	CoreNetOverLoadThreshold *IRQCoreNetOverloadThresholds `json:"coreNetOverLoadThreshold,omitempty"`
 	// Describes the constraints of the balanced configuration.
 	// +optional
 	LoadBalance *IRQLoadBalanceConfig `json:"loadBalance,omitempty"`
@@ -148,14 +148,14 @@ type ThroughputClassSwitchConfig struct {
 
 type LowThroughputThresholds struct {
 	// +optional
-	RxPPSThresh *uint64 `json:"rxPPSThresh,omitempty"`
+	RxPPSThreshold *uint64 `json:"rxPPSThreshold,omitempty"`
 	// +optional
 	SuccessiveCount *int `json:"successiveCount,omitempty"`
 }
 
 type NormalThroughputThresholds struct {
 	// +optional
-	RxPPSThresh *uint64 `json:"rxPPSThresh,omitempty"`
+	RxPPSThreshold *uint64 `json:"rxPPSThreshold,omitempty"`
 	// +optional
 	SuccessiveCount *int `json:"successiveCount,omitempty"`
 }
@@ -181,17 +181,17 @@ type IRQLoadBalanceConfig struct {
 	SuccessiveTuningInterval *int `json:"successiveTuningInterval,omitempty"`
 	// +optional
 	Thresholds *IRQLoadBalanceTuningThresholds `json:"thresholds,omitempty"`
-	// Two successive tunes whose interval is less-equal this threshold will be considered as pingpong tunings
+	// Two successive tunes whose interval is less-equal this threshold will be considered as ping-pong tunings
 	// +optional
-	PingPongIntervalThresh *int `json:"pingPongIntervalThresh,omitempty"`
+	PingPongIntervalThreshold *int `json:"pingPongIntervalThreshold,omitempty"`
 	// Ping pong count greater-equal this threshold will trigger increasing irq cores
 	// +optional
-	PingPongCountThresh *int `json:"pingPongCountThresh,omitempty"`
+	PingPongCountThreshold *int `json:"pingPongCountThreshold,omitempty"`
 	// Max number of irqs are permitted to be tuned from some irq cores to other cores in each time, allowed value {1, 2}
 	// +kubebuilder:validation:Enum={1,2}
 	// +optional
 	IRQTunedNumMaxEachTime *int `json:"irqTunedNumMaxEachTime,omitempty"`
-	// Max number of irq cores whose affinitied irqs are permitted to tuned to other cores in each time, allowed value {1,2}
+	// Max number of irq cores whose affinity irqs are permitted to tuned to other cores in each time, allowed value {1,2}
 	// +kubebuilder:validation:Enum={1,2}
 	// +optional
 	IRQCoresTunedNumMaxEachTime *int `json:"irqCoresTunedNumMaxEachTime,omitempty"`
@@ -200,10 +200,10 @@ type IRQLoadBalanceConfig struct {
 type IRQLoadBalanceTuningThresholds struct {
 	// IRQ core cpu util threshold, which will trigger irq cores load balance, generally this value should greater-equal IRQCoresExpectedCpuUtil
 	// +optional
-	CPUUtilThresh *int `json:"cpuUtilThresh,omitempty"`
+	CPUUtilThreshold *int `json:"cpuUtilThreshold,omitempty"`
 	// Threshold of cpu util gap between source core and dest core of irq affinity changing
 	// +optional
-	CPUUtilGapThresh *int `json:"cpuUtilGapThresh,omitempty"`
+	CPUUtilGapThreshold *int `json:"cpuUtilGapThreshold,omitempty"`
 }
 
 type IRQCoresAdjustConfig struct {
@@ -235,7 +235,7 @@ type IRQCoresIncConfig struct {
 	SuccessiveIncInterval *int `json:"successiveIncInterval,omitempty"`
 	// When irq cores cpu util hit this thresh, then fallback to balance-fair policy
 	// +optional
-	FullThresh *int `json:"fullThresh,omitempty"`
+	FullThreshold *int `json:"fullThreshold,omitempty"`
 	// +optional
 	Thresholds *IRQCoresIncThresholds `json:"thresholds,omitempty"`
 }
@@ -247,7 +247,7 @@ type IRQCoresIncConfig struct {
 type IRQCoresIncThresholds struct {
 	// Threshold of increasing irq cores, generally this thresh equal to or a litter greater-than IrqCoresExpectedCpuUtil
 	// +optional
-	AvgCPUUtilThresh *int `json:"avgCPUUtilThresh,omitempty"`
+	AvgCPUUtilThreshold *int `json:"avgCPUUtilThreshold,omitempty"`
 }
 
 type IRQCoresDecConfig struct {
@@ -269,7 +269,7 @@ type IRQCoresDecConfig struct {
 type IRQCoresDecThresholds struct {
 	// Threshold of decreasing irq cores, generally this thresh should be less-than IrqCoresExpectedCpuUtil
 	// +optional
-	AvgCPUUtilThresh *int `json:"avgCPUUtilThresh,omitempty"`
+	AvgCPUUtilThreshold *int `json:"avgCPUUtilThreshold,omitempty"`
 }
 
 type IRQCoresExclusionConfig struct {
@@ -293,7 +293,7 @@ type EnableIRQCoresExclusionThresholds struct {
 	// +kubebuilder:validation:Minimum=0
 	// +kubebuilder:validation:Format="uint64"
 	// +optional
-	RxPPSThresh *uint64 `json:"rxPPSThresh,omitempty"`
+	RxPPSThreshold *uint64 `json:"rxPPSThreshold,omitempty"`
 	// +optional
 	SuccessiveCount *int `json:"successiveCount,omitempty"`
 }
@@ -304,7 +304,7 @@ type DisableIRQCoresExclusionThresholds struct {
 	// +kubebuilder:validation:Minimum=0
 	// +kubebuilder:validation:Format="uint64"
 	// +optional
-	RxPPSThresh *uint64 `json:"rxPPSThresh,omitempty"`
+	RxPPSThreshold *uint64 `json:"rxPPSThreshold,omitempty"`
 	// +optional
 	SuccessiveCount *int `json:"successiveCount,omitempty"`
 }
