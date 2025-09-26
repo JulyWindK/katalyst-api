@@ -501,6 +501,11 @@ func (in *CPUPressureEvictionConfig) DeepCopyInto(out *CPUPressureEvictionConfig
 		*out = new(int)
 		**out = **in
 	}
+	if in.LoadMetricValidTime != nil {
+		in, out := &in.LoadMetricValidTime, &out.LoadMetricValidTime
+		*out = new(v1.Duration)
+		**out = **in
+	}
 	if in.LoadEvictionCoolDownTime != nil {
 		in, out := &in.LoadEvictionCoolDownTime, &out.LoadEvictionCoolDownTime
 		*out = new(v1.Duration)
@@ -1963,6 +1968,11 @@ func (in *NumaCPUPressureEvictionConfig) DeepCopyInto(out *NumaCPUPressureEvicti
 		*out = new(int)
 		**out = **in
 	}
+	if in.MetricValidTime != nil {
+		in, out := &in.MetricValidTime, &out.MetricValidTime
+		*out = new(int64)
+		**out = **in
+	}
 	if in.GracePeriod != nil {
 		in, out := &in.GracePeriod, &out.GracePeriod
 		*out = new(int64)
@@ -2756,6 +2766,11 @@ func (in *SystemLoadPressureEvictionConfig) DeepCopyInto(out *SystemLoadPressure
 	}
 	if in.SyncPeriod != nil {
 		in, out := &in.SyncPeriod, &out.SyncPeriod
+		*out = new(int64)
+		**out = **in
+	}
+	if in.MetricValidTime != nil {
+		in, out := &in.MetricValidTime, &out.MetricValidTime
 		*out = new(int64)
 		**out = **in
 	}
