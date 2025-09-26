@@ -209,6 +209,11 @@ spec:
                               load of the target cpuset pool
                             minimum: 1
                             type: integer
+                          loadMetricValidTime:
+                            description: |-
+                              LoadMetricValidTime is the valid time of the load metric, if the load metric
+                              is not updated for the valid time, the load metric will be considered invalid
+                            type: string
                           loadThresholdMetPercentage:
                             description: |-
                               LoadThresholdMetPercentage is the percentage of the number of times the load
@@ -264,6 +269,11 @@ spec:
                                   ring buffer for calculating NUMA CPU pressure.
                                 minimum: 1
                                 type: integer
+                              metricValidTime:
+                                description: |-
+                                  MetricValidTime is the valid time of the metric, if the metric
+                                  is not updated for the valid time, the metric will be considered invalid
+                                type: string
                               skippedPodKinds:
                                 description: SkippedPodKinds is the pod kind that
                                   will be skipped when selecting pods to be evicted.

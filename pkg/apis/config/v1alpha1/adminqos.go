@@ -400,6 +400,11 @@ type CPUPressureEvictionConfig struct {
 	// +optional
 	LoadMetricRingSize *int `json:"loadMetricRingSize,omitempty"`
 
+	// LoadMetricValidTime is the valid time of the load metric, if the load metric
+	// is not updated for the valid time, the load metric will be considered invalid
+	// +optional
+	LoadMetricValidTime *metav1.Duration `json:"loadMetricValidTime,omitempty"`
+
 	// LoadEvictionCoolDownTime is the cool-down time of cpu load eviction,
 	// if the cpu load eviction is triggered, the cpu load eviction will be
 	// disabled for the cool-down time
@@ -450,6 +455,11 @@ type NumaCPUPressureEvictionConfig struct {
 	// +kubebuilder:validation:Minimum=1
 	// +optional
 	MetricRingSize *int `json:"metricRingSize,omitempty"`
+
+	// MetricValidTime is the valid time of the metric, if the metric
+	// is not updated for the valid time, the metric will be considered invalid
+	// +optional
+	MetricValidTime *metav1.Duration `json:"metricValidTime,omitempty"`
 
 	// GracePeriod is the grace period (in seconds) after a pod starts before it can be considered for eviction
 	// due to NUMA CPU pressure. 0 means no grace period.
