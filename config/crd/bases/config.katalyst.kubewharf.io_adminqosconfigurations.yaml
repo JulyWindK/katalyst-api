@@ -390,6 +390,18 @@ spec:
                             format: int64
                             minimum: 0
                             type: integer
+                          numaEvictAnnotationSelector:
+                            description: NumaEvictAnnotationSelector is the annotation
+                              selector to filter pods for eviction at the NUMA level
+                            items:
+                              type: string
+                            type: array
+                          numaEvictLabelSelector:
+                            description: NumaEvictLabelSelector is the label selector
+                              to filter pods for eviction at the NUMA level
+                            items:
+                              type: string
+                            type: array
                           numaEvictionRankingMetrics:
                             description: |-
                               NumaEvictionRankingMetrics is the metrics used to rank pods for eviction
