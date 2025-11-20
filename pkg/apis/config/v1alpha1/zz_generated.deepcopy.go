@@ -1890,6 +1890,16 @@ func (in *MemoryPressureEvictionConfig) DeepCopyInto(out *MemoryPressureEviction
 		*out = new(int64)
 		**out = **in
 	}
+	if in.EvictAnnotationSelector != nil {
+		in, out := &in.EvictAnnotationSelector, &out.EvictAnnotationSelector
+		*out = make([]string, len(*in))
+		copy(*out, *in)
+	}
+	if in.EvictLabelSelector != nil {
+		in, out := &in.EvictLabelSelector, &out.EvictLabelSelector
+		*out = make([]string, len(*in))
+		copy(*out, *in)
+	}
 	return
 }
 

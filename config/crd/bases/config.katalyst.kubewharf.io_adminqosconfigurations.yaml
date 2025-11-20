@@ -384,6 +384,18 @@ spec:
                             description: EnableSystemLevelEviction is whether to enable
                               system-level eviction
                             type: boolean
+                          evictAnnotationSelector:
+                            description: EvictAnnotationSelector is the annotation
+                              selector to filter pods for eviction
+                            items:
+                              type: string
+                            type: array
+                          evictLabelSelector:
+                            description: EvictAnnotationSelector is the label selector
+                              to filter pods for eviction
+                            items:
+                              type: string
+                            type: array
                           gracePeriod:
                             description: GracePeriod is the grace period of memory
                               pressure eviction
