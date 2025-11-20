@@ -563,6 +563,14 @@ type MemoryPressureEvictionConfig struct {
 	// +kubebuilder:validation:Minimum=0
 	// +optional
 	ReclaimedGracePeriod *int64 `json:"reclaimedGracePeriod,omitempty"`
+
+	// EvictAnnotationSelector is the annotation selector to filter pods for eviction
+	// +optional
+	EvictAnnotationSelector string `json:"evictAnnotationSelector,omitempty"`
+
+	// EvictAnnotationSelector is the label selector to filter pods for eviction
+	// +optional
+	EvictLabelSelector string `json:"evictLabelSelector,omitempty"`
 }
 
 type SystemLoadPressureEvictionConfig struct {
