@@ -713,6 +713,18 @@ spec:
                             type: number
                         type: object
                     type: object
+                  qrmPluginConfig:
+                    description: QRMPluginConfig is a configuration for qrm plugin
+                    properties:
+                      cpuPluginConfig:
+                        description: CPUPluginConfig is the config for cpu plugin
+                        properties:
+                          enableNUMAHintsFollowScheduler:
+                            description: EnableNUMAHintsFollowScheduler is a flag
+                              to enable numa hint follow scheduler
+                            type: boolean
+                        type: object
+                    type: object
                   reclaimedResourceConfig:
                     description: ReclaimedResourceConfig is a configuration for reclaim
                       resource
