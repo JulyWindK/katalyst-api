@@ -49,6 +49,7 @@ const (
 	ResourceNameStrategyGroupConfigurations = "strategygroupconfigurations"
 	ResourceNameStrategyGroups              = "strategygroups"
 	ResourceNameIRQTuningConfigurations     = "irqtuningconfigurations"
+	ResourceNameOOMPriorityConfigurations   = "oompriorityconfigurations"
 )
 
 // Resource takes an unqualified resource and returns a Group qualified GroupResource
@@ -92,6 +93,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		&StrategyGroupList{},
 		&IRQTuningConfiguration{},
 		&IRQTuningConfigurationList{},
+		&OOMPriorityConfiguration{},
+		&OOMPriorityConfigurationList{},
 
 		// global resource portrait configuration
 		&GlobalResourcePortraitConfiguration{},
