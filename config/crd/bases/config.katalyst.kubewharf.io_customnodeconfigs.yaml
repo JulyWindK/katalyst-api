@@ -43,6 +43,43 @@ spec:
           status:
             description: CustomNodeConfigStatus defines the desired state of KatalystCustomConfig
             properties:
+              defaultServiceProfileConfig:
+                description: DefaultServiceProfileConfig describes the cluster-level
+                  default SPD
+                properties:
+                  configName:
+                    description: ConfigName name of target config
+                    type: string
+                  configNamespace:
+                    description: ConfigNamespace namespace of target config
+                    type: string
+                  configType:
+                    description: ConfigType gvr of target config
+                    properties:
+                      group:
+                        type: string
+                      resource:
+                        type: string
+                      version:
+                        type: string
+                    required:
+                      - group
+                      - resource
+                      - version
+                    type: object
+                  hash:
+                    description: |-
+                      Hash is current hash value of target config.
+                      The agent will first check whether the local config hash and
+                      the target config hash are equal, only if not, it will try to
+                      update the local config from the remote.
+                    type: string
+                required:
+                  - configName
+                  - configNamespace
+                  - configType
+                  - hash
+                type: object
               katalystCustomConfigList:
                 description: KatalystCustomConfigList contains a list of target custom
                   config

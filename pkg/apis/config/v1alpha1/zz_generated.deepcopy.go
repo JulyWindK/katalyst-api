@@ -874,6 +874,11 @@ func (in *CustomNodeConfigStatus) DeepCopyInto(out *CustomNodeConfigStatus) {
 		*out = make([]TargetConfig, len(*in))
 		copy(*out, *in)
 	}
+	if in.DefaultServiceProfileConfig != nil {
+		in, out := &in.DefaultServiceProfileConfig, &out.DefaultServiceProfileConfig
+		*out = new(TargetConfig)
+		**out = **in
+	}
 	return
 }
 

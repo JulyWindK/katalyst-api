@@ -137,6 +137,10 @@ type CustomNodeConfigStatus struct {
 
 	// ServiceProfileConfigList contains a list of target service Profile config
 	ServiceProfileConfigList []TargetConfig `json:"serviceProfileConfigList,omitempty"`
+
+	// DefaultServiceProfileConfig describes the cluster-level default SPD
+	// +optional
+	DefaultServiceProfileConfig *TargetConfig `json:"defaultServiceProfileConfig,omitempty"`
 }
 
 // TargetConfig current hash for specific gvk config object
